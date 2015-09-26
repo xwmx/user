@@ -17,10 +17,10 @@ login window.
 
 ```
 Usage:
-  $_ME list
-  $_ME login <username>
-  $_ME window
-  $_ME -h | --help
+  accounts list
+  accounts login <username>
+  accounts window
+  accounts -h | --help
 
 Subcommands:
   list    List login user accounts.
