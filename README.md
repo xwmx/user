@@ -11,7 +11,9 @@
 
 # accounts
 
-Common OS X user account operations.
+`accounts` is a command line / terminal tool for common OS X user account
+operations, like fast user switching, listing users, and displaying the
+login window.
 
 ```
 Usage:
