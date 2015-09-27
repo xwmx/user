@@ -45,6 +45,7 @@ Usage:
   accounts login <username>
   accounts window
   accounts -h | --help
+  accounts --version
 
 Subcommands:
   list    List login user accounts.
@@ -53,4 +54,5 @@ Subcommands:
 
 Options:
   -h --help  Display this help information.
+  --version  Display version information.
 ```
