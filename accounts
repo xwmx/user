@@ -36,6 +36,11 @@ IFS=$'\n\t'
 # Set to the program's basename.
 _ME=$(basename "$0")
 
+# $_VERSION
+#
+# Manually set this to to current version of the program.
+_VERSION=1.0.0.alpha
+
 ###############################################################################
 # Debug
 ###############################################################################
@@ -114,11 +119,14 @@ read -r -d '' "_program_help" <<EOM || true
 
 Common OS X user account operations.
 
+Version: $_VERSION
+
 Usage:
   $_ME list
   $_ME login <username>
   $_ME window
   $_ME -h | --help
+  $_ME --version
 
 Subcommands:
   list    List login user accounts.
@@ -127,6 +135,7 @@ Subcommands:
 
 Options:
   -h --help  Display this help information.
+  --version  Display version information.
 EOM
 
 # _print_help()
@@ -136,6 +145,15 @@ EOM
 # Print the program help information.
 _print_help() {
   printf "%s\n" "$_program_help"
+}
+
+# _print_version()
+#
+# Usage: _print_help
+#
+# Print the current program version.
+_print_version() {
+  printf "%s\n" "$_VERSION"
 }
 
 ###############################################################################
@@ -227,6 +245,7 @@ unset options
 
 # Initialize program option variables.
 _PRINT_HELP=0
+_PRINT_VERSION=0
 _USE_DEBUG=0
 _SUBCOMMAND=
 _ARGUMENTS=("$0")
@@ -267,6 +286,9 @@ do
   case "$opt" in
     -h|--help)
       _PRINT_HELP=1
+      ;;
+    --version)
+      _PRINT_VERSION=1
       ;;
     --debug)
       _USE_DEBUG=1
@@ -373,6 +395,9 @@ _main() {
   if (("$_PRINT_HELP"))
   then
     _print_help
+  elif (("$_PRINT_VERSION"))
+  then
+    _print_version
   else
     _accounts "$@"
   fi
