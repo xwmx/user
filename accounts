@@ -142,7 +142,7 @@ Subcommands:
 Options:
   -h --help  Display this help information.
   --version  Display version information.
-  --force    Supress confirmation prompt.
+  --force    Suppress confirmation prompt.
 EOM
 
 # _print_help()
