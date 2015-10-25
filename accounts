@@ -127,6 +127,8 @@ Version: $_VERSION
 Usage:
   $_ME list
   $_ME login <username>
+  $_ME logout [--force]
+  $_ME logout
   $_ME window
   $_ME -h | --help
   $_ME --version
@@ -134,11 +136,13 @@ Usage:
 Subcommands:
   list    List login user accounts.
   login   Login as the specified user, aka "Fast User Switching."
-  window  Go to the OS X login window.
+  logout  Logout the current user.
+  window  Go to the OS X login window without logging out.
 
 Options:
   -h --help  Display this help information.
   --version  Display version information.
+  --force    Supress confirmation prompt.
 EOM
 
 # _print_help()
@@ -296,7 +300,7 @@ do
     --debug)
       _USE_DEBUG=1
       ;;
-    list|login|window)
+    list|login|logout|window)
       if [[ -z "$_SUBCOMMAND" ]]
       then
         _SUBCOMMAND="$opt"
@@ -380,6 +384,14 @@ _accounts() {
 
       _debug printf "%s\n" "$_CGSESSION -switchToUserID $_user_id"
       "$_CGSESSION" -switchToUserID "$_user_id"
+      ;;
+    "logout")
+      if [[ "${_ARGUMENTS[1]:-}" == "--force" ]]
+      then
+        osascript -e 'tell application "loginwindow" to  «event aevtrlgo»'
+      else
+        osascript -e 'tell app "System Events" to log out'
+      fi
       ;;
     "window")
       "$_CGSESSION" -suspend
