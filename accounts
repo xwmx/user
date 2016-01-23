@@ -382,6 +382,13 @@ _accounts() {
         _die printf "No user with that name found.\n"
       fi
 
+      if [[ "$(whoami)" == "$_user" ]]
+      then
+        _die printf \
+          "You are already currently logged in as '%s'.\n" \
+          "$_user"
+      fi
+
       _debug printf "%s\n" "$_CGSESSION -switchToUserID $_user_id"
       "$_CGSESSION" -switchToUserID "$_user_id"
       ;;
