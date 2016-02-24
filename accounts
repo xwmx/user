@@ -34,7 +34,7 @@ IFS=$'\n\t'
 # $_ME
 #
 # Set to the program's basename.
-_ME=$(basename "$0")
+_ME=$(basename "${0}")
 
 # $_VERSION
 #
@@ -60,7 +60,7 @@ _debug() {
     __DEBUG_COUNTER=$((__DEBUG_COUNTER+1))
     # Prefix debug message with "bug (U+1F41B)"
     printf "🐛  %s " "${__DEBUG_COUNTER}"
-    "$@"
+    "${@}"
     printf "――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――\n"
   fi
 }
@@ -73,7 +73,7 @@ _debug() {
 #
 # This is a shortcut for the _debug() function that simply echos the message.
 debug() {
-  _debug echo "$@"
+  _debug echo "${@}"
 }
 
 ###############################################################################
@@ -91,7 +91,7 @@ debug() {
 _die() {
   # Prefix die message with "cross mark (U+274C)", often displayed as a red x.
   printf "❌  "
-  "$@" 1>&2
+  "${@}" 1>&2
   exit 1
 }
 # die()
@@ -103,7 +103,7 @@ _die() {
 #
 # This is a shortcut for the _die() function that simply echos the message.
 die() {
-  _die echo "$@"
+  _die echo "${@}"
 }
 
 ###############################################################################
@@ -122,16 +122,16 @@ read -r -d '' "_program_help" <<EOM || true
 
 Common OS X user account operations.
 
-Version: $_VERSION
+Version: ${_VERSION}
 
 Usage:
-  $_ME list
-  $_ME login <username>
-  $_ME logout [--force]
-  $_ME logout
-  $_ME window
-  $_ME -h | --help
-  $_ME --version
+  ${_ME} list
+  ${_ME} login <username>
+  ${_ME} logout [--force]
+  ${_ME} logout
+  ${_ME} window
+  ${_ME} -h | --help
+  ${_ME} --version
 
 Subcommands:
   list    List login user accounts.
@@ -151,7 +151,7 @@ EOM
 #
 # Print the program help information.
 _print_help() {
-  printf "%s\n" "$_program_help"
+  printf "%s\n" "${_program_help}"
 }
 
 # _print_version()
@@ -160,7 +160,7 @@ _print_help() {
 #
 # Print the current program version.
 _print_version() {
-  printf "%s\n" "$_VERSION"
+  printf "%s\n" "${_VERSION}"
 }
 
 ###############################################################################
@@ -203,9 +203,9 @@ optstring=h
 # argument to the option, such as wget -qO-)
 unset options
 # while the number of arguments is greater than 0
-while (($#))
+while ((${#}))
 do
-  case $1 in
+  case ${1} in
     # if option is of type -ab
     -[!-]?*)
       # loop over each character starting with the second
@@ -214,11 +214,11 @@ do
         # extract 1 character from position 'i'
         c=${1:i:1}
         # add current char to options
-        options+=("-$c")
+        options+=("-${c}")
 
         # if option takes a required argument, and it's not the last char
         # make the rest of the string its argument
-        if [[ $optstring = *"$c:"* && ${1:i+1} ]]
+        if [[ ${optstring} = *"${c}:"* && ${1:i+1} ]]
         then
           options+=("${1:i+1}")
           break
@@ -233,12 +233,12 @@ do
     --)
       options+=(--endopts)
       shift
-      options+=("$@")
+      options+=("${@}")
       break
       ;;
     # otherwise, nothing special
     *)
-      options+=("$1")
+      options+=("${1}")
       ;;
   esac
 
@@ -255,7 +255,7 @@ _PRINT_HELP=0
 _PRINT_VERSION=0
 _USE_DEBUG=0
 _SUBCOMMAND=
-_ARGUMENTS=("$0")
+_ARGUMENTS=("${0}")
 
 # _require_argument()
 #
@@ -270,12 +270,12 @@ _require_argument() {
   # NOTE: 'local' is a non-POSIX bash feature and keeps the variable local to
   # the block of code, as defined by curly braces. It's easiest to just think
   # of them as local to a function.
-  local option="$1"
-  local value="$2"
+  local option="${1}"
+  local value="${2}"
 
-  if [[ -z "$value" ]]
+  if [[ -z "${value}" ]]
   then
-    _die printf "Option requires an argument: %s\n" "$option"
+    _die printf "Option requires an argument: %s\n" "${option}"
   fi
 }
 # getopts and getopts have inconsistent behavior, so using a simple home-brewed
@@ -286,11 +286,11 @@ _require_argument() {
 #   http://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html
 #   http://stackoverflow.com/a/14203146
 #   http://stackoverflow.com/a/7948533
-while [ $# -gt 0 ]
+while [ ${#} -gt 0 ]
 do
-  opt="$1"
+  opt="${1}"
   shift
-  case "$opt" in
+  case "${opt}" in
     -h|--help)
       _PRINT_HELP=1
       ;;
@@ -301,11 +301,11 @@ do
       _USE_DEBUG=1
       ;;
     list|login|logout|window)
-      if [[ -z "$_SUBCOMMAND" ]]
+      if [[ -z "${_SUBCOMMAND}" ]]
       then
-        _SUBCOMMAND="$opt"
+        _SUBCOMMAND="${opt}"
       else
-        _ARGUMENTS+=("$opt")
+        _ARGUMENTS+=("${opt}")
       fi
       ;;
     --endopts)
@@ -313,18 +313,18 @@ do
       break
       ;;
     *)
-      _ARGUMENTS+=("$opt")
+      _ARGUMENTS+=("${opt}")
       ;;
   esac
 done
 
-if [[ -z "$_SUBCOMMAND" ]]
+if [[ -z "${_SUBCOMMAND}" ]]
 then
   _SUBCOMMAND="help"
 fi
 
-_debug printf "\$_SUBCOMMAND: %s\n" "$_SUBCOMMAND"
-_debug printf "\$_ARGUMENTS: %s\n" "${_ARGUMENTS[*]:-}"
+_debug printf "\${_SUBCOMMAND}: %s\n" "${_SUBCOMMAND}"
+_debug printf "\${_ARGUMENTS[*]:-}: %s\n" "${_ARGUMENTS[*]:-}"
 
 ###############################################################################
 # Program Functions
@@ -342,12 +342,12 @@ _accounts() {
   local _user
   local _user_id
 
-  case "$_SUBCOMMAND" in
+  case "${_SUBCOMMAND}" in
     "list")
       _users_and_ids=($(dscl . list /Users uid | grep -v '^_'))
       for _user in "${_users_and_ids[@]}"
       do
-        _username="$(echo "$_user" | awk '{print $1}')"
+        _username="$(echo "${_user}" | awk '{print $1}')"
 
         # Only print users with valid home directories, which is used here as an
         # indication that the account is a valid login account. So far I've been
@@ -356,41 +356,46 @@ _accounts() {
           dscl . -read "/Users/${_username}" NFSHomeDirectory | \
             awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'
         )"
-        _debug printf "_accounts() \$_username: %s\n" "$_username"
-        _debug printf "_accounts() \$_home_directory: %s\n" "$_home_directory"
-        if ! ( [[ "$_username" == "root" ]]         ||
-               [[ "$_username" == "daemon" ]]       ||
-               [[ "$_home_directory" =~ ^/var.* ]]  ||
-               [[ "$_home_directory" =~ ^/dev.* ]]  ||
-               [[ "$_home_directory" =~ ^/opt.* ]]
+        _debug printf \
+          "_accounts() \${_username}: %s\n" \
+          "${_username}"
+        _debug printf \
+          "_accounts() \${_home_directory}: %s\n" \
+          "${_home_directory}"
+
+        if ! ( [[ "${_username}" == "root" ]]         ||
+               [[ "${_username}" == "daemon" ]]       ||
+               [[ "${_home_directory}" =~ ^/var.* ]]  ||
+               [[ "${_home_directory}" =~ ^/dev.* ]]  ||
+               [[ "${_home_directory}" =~ ^/opt.* ]]
         )
         then
-          echo "$_username"
+          echo "${_username}"
         fi
       done
       ;;
     "login")
       _user="${_ARGUMENTS[1]:-}"
-      if [[ -z "$_user" ]]
+      if [[ -z "${_user}" ]]
       then
         _die printf "User missing.\n%s\n" "$(_print_help)"
       fi
 
-      _user_id=$(id -u "$_user")
-      if [[ -z "$_user_id" ]]
+      _user_id=$(id -u "${_user}")
+      if [[ -z "${_user_id}" ]]
       then
         _die printf "No user with that name found.\n"
       fi
 
-      if [[ "$(whoami)" == "$_user" ]]
+      if [[ "$(whoami)" == "${_user}" ]]
       then
         _die printf \
           "You are already currently logged in as '%s'.\n" \
-          "$_user"
+          "${_user}"
       fi
 
-      _debug printf "%s\n" "$_CGSESSION -switchToUserID $_user_id"
-      "$_CGSESSION" -switchToUserID "$_user_id"
+      _debug printf "%s\n" "${_CGSESSION} -switchToUserID ${_user_id}"
+      "${_CGSESSION}" -switchToUserID "${_user_id}"
       ;;
     "logout")
       if [[ "${_ARGUMENTS[1]:-}" == "--force" ]]
@@ -401,7 +406,7 @@ _accounts() {
       fi
       ;;
     "window")
-      "$_CGSESSION" -suspend
+      "${_CGSESSION}" -suspend
       ;;
     "help")
       _print_help
@@ -414,15 +419,15 @@ _accounts() {
 ###############################################################################
 
 _main() {
-  if (("$_PRINT_HELP"))
+  if ((_PRINT_HELP))
   then
     _print_help
-  elif (("$_PRINT_VERSION"))
+  elif ((_PRINT_VERSION))
   then
     _print_version
   else
-    _accounts "$@"
+    _accounts "${@}"
   fi
 }
 
-_main "$@"
+_main "${@}"
