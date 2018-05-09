@@ -48,7 +48,7 @@ _VERSION=1.1.3
 # _debug()
 #
 # Usage:
-#   _debug printf "Debug info. Variable: %s\n" "$0"
+#   _debug printf "Debug info. Variable: %s\\n" "$0"
 #
 # A simple function for executing a specified command if the `$_USE_DEBUG`
 # variable has been set. The command is expected to print a message and
@@ -61,7 +61,7 @@ _debug() {
     # Prefix debug message with "bug (U+1F41B)"
     printf "🐛  %s " "${__DEBUG_COUNTER}"
     "${@}"
-    printf "――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――\n"
+    printf "――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――\\n"
   fi
 }
 # debug()
@@ -83,7 +83,7 @@ debug() {
 # _die()
 #
 # Usage:
-#   _die printf "Error message. Variable: %s\n" "$0"
+#   _die printf "Error message. Variable: %s\\n" "$0"
 #
 # A simple function for exiting with an error after executing the specified
 # command. The command is expected to print a message and should typically
@@ -151,7 +151,7 @@ EOM
 #
 # Print the program help information.
 _print_help() {
-  printf "%s\n" "${_program_help}"
+  printf "%s\\n" "${_program_help}"
 }
 
 # _print_version()
@@ -160,7 +160,7 @@ _print_help() {
 #
 # Print the current program version.
 _print_version() {
-  printf "%s\n" "${_VERSION}"
+  printf "%s\\n" "${_VERSION}"
 }
 
 ###############################################################################
@@ -275,7 +275,7 @@ _require_argument() {
 
   if [[ -z "${value}" ]]
   then
-    _die printf "Option requires an argument: %s\n" "${option}"
+    _die printf "Option requires an argument: %s\\n" "${option}"
   fi
 }
 # getopts and getopts have inconsistent behavior, so using a simple home-brewed
@@ -323,8 +323,8 @@ then
   _SUBCOMMAND="help"
 fi
 
-_debug printf "\${_SUBCOMMAND}: %s\n" "${_SUBCOMMAND}"
-_debug printf "\${_ARGUMENTS[*]:-}: %s\n" "${_ARGUMENTS[*]:-}"
+_debug printf "\${_SUBCOMMAND}: %s\\n" "${_SUBCOMMAND}"
+_debug printf "\${_ARGUMENTS[*]:-}: %s\\n" "${_ARGUMENTS[*]:-}"
 
 ###############################################################################
 # Program Functions
@@ -334,7 +334,7 @@ _USER_MENU="/System/Library/CoreServices/Menu Extras/User.menu"
 _CGSESSION="${_USER_MENU}/Contents/Resources/CGSession"
 
 _accounts() {
-  _debug printf "_accounts() >> start\n"
+  _debug printf "_accounts() >> start\\n"
 
   local _users_and_ids
   local _username
@@ -357,10 +357,10 @@ _accounts() {
             awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'
         )"
         _debug printf \
-          "_accounts() \${_username}: %s\n" \
+          "_accounts() \${_username}: %s\\n" \
           "${_username}"
         _debug printf \
-          "_accounts() \${_home_directory}: %s\n" \
+          "_accounts() \${_home_directory}: %s\\n" \
           "${_home_directory}"
 
         if ! ( [[ "${_username}" == "root" ]]         ||
@@ -378,23 +378,23 @@ _accounts() {
       _user="${_ARGUMENTS[1]:-}"
       if [[ -z "${_user}" ]]
       then
-        _die printf "User missing.\n%s\n" "$(_print_help)"
+        _die printf "User missing.\\n%s\\n" "$(_print_help)"
       fi
 
       _user_id=$(id -u "${_user}")
       if [[ -z "${_user_id}" ]]
       then
-        _die printf "No user with that name found.\n"
+        _die printf "No user with that name found.\\n"
       fi
 
       if [[ "$(whoami)" == "${_user}" ]]
       then
         _die printf \
-          "You are already currently logged in as '%s'.\n" \
+          "You are already currently logged in as '%s'.\\n" \
           "${_user}"
       fi
 
-      _debug printf "%s\n" "${_CGSESSION} -switchToUserID ${_user_id}"
+      _debug printf "%s\\n" "${_CGSESSION} -switchToUserID ${_user_id}"
       "${_CGSESSION}" -switchToUserID "${_user_id}"
       ;;
     "logout")
