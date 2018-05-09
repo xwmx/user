@@ -11,9 +11,9 @@
 
 # accounts
 
-`accounts` is a command line / terminal tool for common OS X user account
-operations, like fast user switching, listing users, and displaying the
-login window.
+`accounts` is a command line / terminal tool for common macOS user account
+operations, like fast user switching, listing users, and displaying the login
+window.
 
 ## Installation
 
@@ -52,7 +52,7 @@ Subcommands:
   list    List login user accounts.
   login   Log in as the specified user, aka "Fast User Switching."
   logout  Log out the current user.
-  window  Go to the OS X login window without logging out.
+  window  Go to the login window without logging out.
 
 Options:
   -h --help  Display this help information.

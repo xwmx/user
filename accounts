@@ -9,7 +9,7 @@
 # //********//***** //***** //****** //****** ***  /**  //**  ******
 #  ////////  /////   /////   //////   ////// ///   //    //  //////
 #
-# Common OS X user account operations.
+# Common macOS user account operations.
 #
 # Based on Bash Boilerplate: https://github.com/alphabetum/bash-boilerplate
 #
@@ -120,7 +120,7 @@ read -r -d '' "_program_help" <<EOM || true
 //********//***** //***** //****** //****** ***  /**  //**  ******
  ////////  /////   /////   //////   ////// ///   //    //  //////
 
-Common OS X user account operations.
+Common macOS user account operations.
 
 Version: ${_VERSION}
 
@@ -137,7 +137,7 @@ Subcommands:
   list    List login user accounts.
   login   Log in as the specified user, aka "Fast User Switching."
   logout  Log out the current user.
-  window  Go to the OS X login window without logging out.
+  window  Go to the login window without logging out.
 
 Options:
   -h --help  Display this help information.
