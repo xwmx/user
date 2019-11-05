@@ -363,12 +363,12 @@ _accounts() {
           "_accounts() \${_home_directory}: %s\\n" \
           "${_home_directory}"
 
-        if ! ( [[ "${_username}" == "root" ]]         ||
+        if ! { [[ "${_username}" == "root" ]]         ||
                [[ "${_username}" == "daemon" ]]       ||
                [[ "${_home_directory}" =~ ^/var.* ]]  ||
                [[ "${_home_directory}" =~ ^/dev.* ]]  ||
                [[ "${_home_directory}" =~ ^/opt.* ]]
-        )
+        }
         then
           echo "${_username}"
         fi
