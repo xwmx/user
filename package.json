@@ -1,6 +1,6 @@
 {
   "name": "accounts",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A command line tool for common macOS / OS X user account operations.",
   "global": true,
   "install": "make install"
