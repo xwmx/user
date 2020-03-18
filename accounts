@@ -11,7 +11,7 @@
 #
 # Common macOS user account operations.
 #
-# Based on Bash Boilerplate: https://github.com/alphabetum/bash-boilerplate
+# Based on Bash Boilerplate: https://github.com/xwmx/bash-boilerplate
 #
 # Copyright (c) 2015 William Melody • hi@williammelody.com
 
@@ -21,7 +21,7 @@
 
 # Bash 'Strict Mode'
 # http://redsymbol.net/articles/unofficial-bash-strict-mode
-# https://github.com/alphabetum/bash-boilerplate#bash-strict-mode
+# https://github.com/xwmx/bash-boilerplate#bash-strict-mode
 set -o nounset
 set -o errexit
 set -o pipefail
