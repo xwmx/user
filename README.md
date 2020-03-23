@@ -11,9 +11,8 @@
 
 # user cli
 
-`user` is a command line / terminal tool for common macOS user account
-operations, like fast user switching, listing users, and displaying the login
-window.
+`user` is a command line interface for common macOS user account operations,
+like fast user switching, listing users, and displaying the user login window.
 
 ## Installation
 
