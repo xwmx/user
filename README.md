@@ -1,17 +1,17 @@
 ```
-                                                       **
-                                                      /**
-  ******    *****   *****   ******  **   ** *******  ******  ******
- //////**  **///** **///** **////**/**  /**//**///**///**/  **////
-  ******* /**  // /**  // /**   /**/**  /** /**  /**  /**  //*****
- **////** /**   **/**   **/**   /**/**  /** /**  /**  /**   /////**
-//********//***** //***** //****** //****** ***  /**  //**  ******
- ////////  /////   /////   //////   ////// ///   //    //  //////
+'##::::'##::'######::'########:'########::
+ ##:::: ##:'##... ##: ##.....:: ##.... ##:
+ ##:::: ##: ##:::..:: ##::::::: ##:::: ##:
+ ##:::: ##:. ######:: ######::: ########::
+ ##:::: ##::..... ##: ##...:::: ##.. ##:::
+ ##:::: ##:'##::: ##: ##::::::: ##::. ##::
+. #######::. ######:: ########: ##:::. ##:
+:.......::::......:::........::..:::::..::
 ```
 
-# accounts
+# user cli
 
-`accounts` is a command line / terminal tool for common macOS user account
+`user` is a command line / terminal tool for common macOS user account
 operations, like fast user switching, listing users, and displaying the login
 window.
 
@@ -22,7 +22,7 @@ window.
 To install with [Homebrew](http://brew.sh/):
 
 ```bash
-brew install xwmx/taps/accounts
+brew install xwmx/taps/user
 ```
 
 ### bpkg
@@ -30,32 +30,32 @@ brew install xwmx/taps/accounts
 To install with [bpkg](http://www.bpkg.io/):
 
 ```bash
-bpkg install xwmx/accounts
+bpkg install xwmx/user
 ```
 
 ### Manual
 
-To install manually, simply add the `accounts` script to your `$PATH`. If
+To install manually, simply add the `user` script to your `$PATH`. If
 you already have a `~/bin` directory, you can use the following command:
 
 ```bash
-curl -L https://raw.github.com/xwmx/accounts/master/accounts \
-  -o ~/bin/accounts && chmod +x ~/bin/accounts
+curl -L https://raw.github.com/xwmx/user/master/user \
+  -o ~/bin/user && chmod +x ~/bin/user
 ```
 
 ## Usage
 
 ```
 Usage:
-  accounts list
-  accounts login <username>
-  accounts logout [--force]
-  accounts window
-  accounts -h | --help
-  accounts --version
+  user list
+  user login <username>
+  user logout [--force]
+  user window
+  user -h | --help
+  user --version
 
 Subcommands:
-  list    List login user accounts.
+  list    List login user user.
   login   Log in as the specified user, aka "Fast User Switching."
   logout  Log out the current user.
   window  Go to the login window without logging out.

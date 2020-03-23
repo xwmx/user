@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 #
-#                                                        **
-#                                                       /**
-#   ******    *****   *****   ******  **   ** *******  ******  ******
-#  //////**  **///** **///** **////**/**  /**//**///**///**/  **////
-#   ******* /**  // /**  // /**   /**/**  /** /**  /**  /**  //*****
-#  **////** /**   **/**   **/**   /**/**  /** /**  /**  /**   /////**
-# //********//***** //***** //****** //****** ***  /**  //**  ******
-#  ////////  /////   /////   //////   ////// ///   //    //  //////
+# '##::::'##::'######::'########:'########::
+#  ##:::: ##:'##... ##: ##.....:: ##.... ##:
+#  ##:::: ##: ##:::..:: ##::::::: ##:::: ##:
+#  ##:::: ##:. ######:: ######::: ########::
+#  ##:::: ##::..... ##: ##...:::: ##.. ##:::
+#  ##:::: ##:'##::: ##: ##::::::: ##::. ##::
+# . #######::. ######:: ########: ##:::. ##:
+# :.......::::......:::........::..:::::..::
 #
 # Common macOS user account operations.
 #
-# https://github.com/xwmx/accounts
+# https://github.com/xwmx/user
 #
 # Based on Bash Boilerplate: https://github.com/xwmx/bash-boilerplate
 #
@@ -113,14 +113,14 @@ die() {
 ###############################################################################
 
 read -r -d '' "_program_help" <<EOM || true
-                                                       **
-                                                      /**
-  ******    *****   *****   ******  **   ** *******  ******  ******
- //////**  **///** **///** **////**/**  /**//**///**///**/  **////
-  ******* /**  // /**  // /**   /**/**  /** /**  /**  /**  //*****
- **////** /**   **/**   **/**   /**/**  /** /**  /**  /**   /////**
-//********//***** //***** //****** //****** ***  /**  //**  ******
- ////////  /////   /////   //////   ////// ///   //    //  //////
+'##::::'##::'######::'########:'########::
+ ##:::: ##:'##... ##: ##.....:: ##.... ##:
+ ##:::: ##: ##:::..:: ##::::::: ##:::: ##:
+ ##:::: ##:. ######:: ######::: ########::
+ ##:::: ##::..... ##: ##...:::: ##.. ##:::
+ ##:::: ##:'##::: ##: ##::::::: ##::. ##::
+. #######::. ######:: ########: ##:::. ##:
+:.......::::......:::........::..:::::..::
 
 Common macOS user account operations.
 
@@ -136,7 +136,7 @@ Usage:
   ${_ME} --version
 
 Subcommands:
-  list    List login user accounts.
+  list    List login user user.
   login   Log in as the specified user, aka "Fast User Switching."
   logout  Log out the current user.
   window  Go to the login window without logging out.
@@ -335,8 +335,8 @@ _debug printf "\${_ARGUMENTS[*]:-}: %s\\n" "${_ARGUMENTS[*]:-}"
 _USER_MENU="/System/Library/CoreServices/Menu Extras/User.menu"
 _CGSESSION="${_USER_MENU}/Contents/Resources/CGSession"
 
-_accounts() {
-  _debug printf "_accounts() >> start\\n"
+_user_main() {
+  _debug printf "_user() >> start\\n"
 
   local _users_and_ids
   local _username
@@ -353,16 +353,16 @@ _accounts() {
 
         # Only print users with valid home directories, which is used here as an
         # indication that the account is a valid login account. So far I've been
-        # unable to find a better way to list only full login user accounts.
+        # unable to find a better way to list only full login user user.
         _home_directory="$(
           dscl . -read "/Users/${_username}" NFSHomeDirectory | \
             awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'
         )"
         _debug printf \
-          "_accounts() \${_username}: %s\\n" \
+          "_user() \${_username}: %s\\n" \
           "${_username}"
         _debug printf \
-          "_accounts() \${_home_directory}: %s\\n" \
+          "_user() \${_home_directory}: %s\\n" \
           "${_home_directory}"
 
         if ! { [[ "${_username}" == "root" ]]         ||
@@ -428,7 +428,7 @@ _main() {
   then
     _print_version
   else
-    _accounts "${@}"
+    _user_main "${@}"
   fi
 }
 
