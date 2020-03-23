@@ -21,21 +21,27 @@ window.
 
 To install with [Homebrew](http://brew.sh/):
 
-    brew install xwmx/taps/accounts
+```bash
+brew install xwmx/taps/accounts
+```
 
 ### bpkg
 
 To install with [bpkg](http://www.bpkg.io/):
 
-    bpkg install xwmx/accounts
+```bash
+bpkg install xwmx/accounts
+```
 
 ### Manual
 
 To install manually, simply add the `accounts` script to your `$PATH`. If
 you already have a `~/bin` directory, you can use the following command:
 
-    curl -L https://raw.github.com/xwmx/accounts/master/accounts \
-      -o ~/bin/accounts && chmod +x ~/bin/accounts
+```bash
+curl -L https://raw.github.com/xwmx/accounts/master/accounts \
+  -o ~/bin/accounts && chmod +x ~/bin/accounts
+```
 
 ## Usage
 
