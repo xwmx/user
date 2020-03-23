@@ -1,7 +1,33 @@
 {
-  "name": "user",
+  "name": "user-cli",
   "version": "1.2.1",
   "description": "A command line tool for common macOS / OS X user account operations.",
   "global": true,
-  "install": "make install"
+  "install": "make install",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "user": "./user"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xwmx/accounts.git"
+  },
+  "keywords": [
+    "macos",
+    "command-line",
+    "bash",
+    "terminal",
+    "shell",
+    "users",
+    "accounts",
+    "osx"
+  ],
+  "author": "William Melody",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xwmx/accounts/issues"
+  },
+  "homepage": "https://github.com/xwmx/accounts#readme"
 }
