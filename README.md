@@ -24,6 +24,14 @@ To install with [Homebrew](http://brew.sh/):
 brew install xwmx/taps/user
 ```
 
+### npm
+
+To install with [npm](https://www.npmjs.com/package/user-cli):
+
+```bash
+npm install --global user-cli
+```
+
 ### bpkg
 
 To install with [bpkg](http://www.bpkg.io/):
