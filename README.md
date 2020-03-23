@@ -21,7 +21,7 @@ window.
 
 To install with [Homebrew](http://brew.sh/):
 
-    brew tap xwmx/taps && brew install xwmx/taps/accounts
+    brew install xwmx/taps/accounts
 
 ### bpkg
 
