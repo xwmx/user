@@ -22,6 +22,8 @@
     "shell",
     "users",
     "accounts",
+    "fast-user-switching",
+    "login",
     "osx"
   ],
   "author": "William Melody",
