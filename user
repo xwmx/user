@@ -145,6 +145,9 @@ Options:
   -h --help  Display this help information.
   --version  Display version information.
   --force    Suppress confirmation prompt.
+
+Home:
+  https://github.com/xwmx/user
 EOM
 
 # _print_help()
