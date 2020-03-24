@@ -62,7 +62,7 @@ Usage:
   user --version
 
 Subcommands:
-  list    List login user user.
+  list    List login user accounts.
   login   Log in as the specified user, aka "Fast User Switching."
   logout  Log out the current user.
   window  Go to the login window without logging out.
