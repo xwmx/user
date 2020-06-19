@@ -60,52 +60,34 @@ _debug() {
   if [[ "${_USE_DEBUG:-"0"}" -eq 1 ]]
   then
     __DEBUG_COUNTER=$((__DEBUG_COUNTER+1))
-    # Prefix debug message with "bug (U+1F41B)"
-    printf "🐛  %s " "${__DEBUG_COUNTER}"
-    "${@}"
-    printf "――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――\\n"
+    {
+      # Prefix debug message with "bug (U+1F41B)"
+      printf "🐛  %s " "${__DEBUG_COUNTER}"
+      "${@}"
+      printf "―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――\\n"
+    } 1>&2
   fi
 }
-# debug()
-#
-# Usage:
-#   debug "Debug info. Variable: $0"
-#
-# Print the specified message if the `$_USE_DEBUG` variable has been set.
-#
-# This is a shortcut for the _debug() function that simply echos the message.
-debug() {
-  _debug echo "${@}"
-}
 
 ###############################################################################
-# Die
+# Error Messaging
 ###############################################################################
 
-# _die()
+# _exit_1()
 #
 # Usage:
-#   _die printf "Error message. Variable: %s\\n" "$0"
+#   _exit_1 <command>
 #
-# A simple function for exiting with an error after executing the specified
-# command. The command is expected to print a message and should typically
-# be either `echo`, `printf`, or `cat`.
-_die() {
-  # Prefix die message with "cross mark (U+274C)", often displayed as a red x.
-  printf "❌  "
-  "${@}" 1>&2
+# Description:
+#   Exit with status 1 after executing the specified command with output
+#   redirected to standard error. The command is expected to print a message
+#   and should typically be either `echo`, `printf`, or `cat`.
+_exit_1() {
+  {
+    printf "%s " "$(tput setaf 1)!$(tput sgr0)"
+    "${@}"
+  } 1>&2
   exit 1
-}
-# die()
-#
-# Usage:
-#   die "Error message. Variable: $0"
-#
-# Exit with an error and print the specified message.
-#
-# This is a shortcut for the _die() function that simply echos the message.
-die() {
-  _die echo "${@}"
 }
 
 ###############################################################################
@@ -280,7 +262,7 @@ _require_argument() {
 
   if [[ -z "${value}" ]]
   then
-    _die printf "Option requires an argument: %s\\n" "${option}"
+    _exit_1 printf "Option requires an argument: %s\\n" "${option}"
   fi
 }
 # getopts and getopts have inconsistent behavior, so using a simple home-brewed
@@ -383,18 +365,18 @@ _user_main() {
       _user="${_ARGUMENTS[1]:-}"
       if [[ -z "${_user}" ]]
       then
-        _die printf "User missing.\\n%s\\n" "$(_print_help)"
+        _exit_1 printf "User missing.\\n%s\\n" "$(_print_help)"
       fi
 
       _user_id=$(id -u "${_user}")
       if [[ -z "${_user_id}" ]]
       then
-        _die printf "No user with that name found.\\n"
+        _exit_1 printf "No user with that name found.\\n"
       fi
 
       if [[ "$(whoami)" == "${_user}" ]]
       then
-        _die printf \
+        _exit_1 printf \
           "You are already currently logged in as '%s'.\\n" \
           "${_user}"
       fi
