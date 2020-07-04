@@ -106,8 +106,6 @@ read -r -d '' "_program_help" <<HEREDOC || true
 
 Common macOS user account operations.
 
-Version: ${_VERSION}
-
 Usage:
   ${_ME} list
   ${_ME} login <username>
