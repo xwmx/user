@@ -363,13 +363,17 @@ _user_main() {
       _user="${_ARGUMENTS[1]:-}"
       if [[ -z "${_user}" ]]
       then
-        _exit_1 printf "User missing.\\n%s\\n" "$(_print_help)"
+        _exit_1 cat <<HEREDOC
+username required
+===================
+$(_print_help)
+HEREDOC
       fi
 
-      _user_id=$(id -u "${_user}")
+      _user_id=$(id -u "${_user}" 2>/dev/null || :)
       if [[ -z "${_user_id}" ]]
       then
-        _exit_1 printf "No user with that name found.\\n"
+        _exit_1 printf "User not found: '%s'\\n" "${_user}"
       fi
 
       if [[ "$(whoami)" == "${_user}" ]]
