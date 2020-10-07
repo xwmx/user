@@ -21,7 +21,8 @@ like fast user switching, listing users, and displaying the user login window.
 To install with [Homebrew](http://brew.sh/):
 
 ```bash
-brew install xwmx/taps/user
+brew taps xwmx/taps
+brew install user
 ```
 
 ### npm
